@@ -55,3 +55,17 @@
   (is (= :x (analyze x-win-horizontal)))
   (is (= :x (analyze x-win-diagonal-back)))
   (is (= :x (analyze x-win-diagonal-forward))))
+
+(defn swap-x-and-o
+  [line]
+  (mapv (fn [sym] (condp = sym
+                    :x :o
+                    :o :x
+                    sym))
+        line))
+
+(deftest o-wins
+  (is (= :o (analyze (mapv swap-x-and-o x-win-vertical))))
+  (is (= :o (analyze (mapv swap-x-and-o x-win-horizontal))))
+  (is (= :o (analyze (mapv swap-x-and-o x-win-diagonal-back))))
+  (is (= :o (analyze (mapv swap-x-and-o x-win-diagonal-forward)))))
